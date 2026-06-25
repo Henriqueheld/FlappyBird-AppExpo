@@ -1,32 +1,111 @@
-import { View, StyleSheet, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context"
+import MovingBackground from "@/Components/Movingbackground";
+import { LinearGradient } from "expo-linear-gradient";
+import { Link } from "expo-router";
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 
 export default function Home() {
-    return (
-        <SafeAreaView style={styles.screen}>
-            <Text style={styles.title}>Flappy Bird</Text>
-        </SafeAreaView>
-    )
+  return (
+    <ImageBackground
+      source={require("@/assets/images/BackGround.png")}
+      resizeMode="cover"
+      style={styles.background}
+    >
+      <SafeAreaView style={styles.screen}>
+        <View style={styles.titleWrapper}>
+          <Image
+            source={require("@/assets/images/cuthulhuEye.webp")}
+            style={styles.titleImage}
+          />
+          <Text style={styles.title}>Flappy Eye</Text>
+        </View>
+        <Link href="/play" asChild>
+          <TouchableOpacity style={styles.button}>
+            <LinearGradient
+              colors={["#be5353", "#662a2a"]}
+              style={styles.buttonGradient}
+            >
+              <Text style={styles.buttonText}>Play Game</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        </Link>
+
+      </SafeAreaView>
+        <MovingBackground />
+    </ImageBackground>
+  );
 }
 
 const styles = StyleSheet.create({
-    screen: {
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgb(27, 24, 32)",
-        alignItems: "center"
-    },
-    
-    title: {
-        fontSize: 45,
-        fontWeight: "bold",
-        alignItems: "center",
-        color: "rgb(255, 245, 245)",
-        backgroundColor: "rgb(45, 40, 53)",
-        textAlign: "center",
-        width: "105%",
-        marginTop: 100,
-        borderWidth: 1,
-        borderColor: "rgb(255, 255, 255)",
-    }
-})
+  background: {
+    width: "100%",
+    height: "100%",
+  },
+
+  screen: {
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+  },
+
+  titleWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 30,
+  },
+
+  titleImage: {
+    width: 80,
+    height: 70,
+    marginRight: 12,
+  },
+
+  title: {
+    fontSize: 90,
+    color: "rgb(122, 37, 16)",
+    textAlign: "center",
+    textShadowColor: "rgba(71, 13, 9, 0.75)",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
+    fontFamily: "MedievalSharp",
+  },
+
+  button: {
+    width: 200,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "rgb(189, 8, 8)",
+    boxShadow: "0px 4px 1px rgba(0, 0, 0, 0.36)",
+    position: "absolute",
+    top: "50%",
+    transform: [{ translateY: -5 }],
+  },
+
+  buttonText: {
+    color: "rgb(255, 255, 255)",
+    fontSize: 20,
+    fontFamily: "Minecraft",
+  },
+
+  buttonGradient: {
+    width: "100%",
+    height: "100%",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 8,
+
+    alignItems: "center",
+  },
+});
