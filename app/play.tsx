@@ -14,25 +14,29 @@ import MovingBackground from "../Components/Movingbackground";
 import {useAudioPlayer} from "expo-audio"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect } from "react";
+import Pipe from "@/Components/Pipe";
 
 
 
 export default function Play() {
 
-    const jumpSound = useAudioPlayer(require("@/assets/Sounds/soundtrack.mp3"))
-
+  const jumpSound = useAudioPlayer(require("@/assets/Sounds/NPC_Hit_1.wav"))
+  const soundtrack = useAudioPlayer(require("@/assets/Sounds/soundtrack.mp3"))
+  
     function handleJump() {
         jumpSound.seekTo(0);
+        jumpSound.volume = 1.0;
         jumpSound.play();
     }
 
     useEffect(() => {
-        jumpSound.seekTo(0)
-        jumpSound.loop = true
-        jumpSound.play()
+        soundtrack.seekTo(0)
+        soundtrack.volume = 0.5;
+        soundtrack.loop = true
+        soundtrack.play()
 
         return () => {
-            jumpSound.pause()
+            soundtrack.pause()
         }
     }, [])
 
@@ -44,12 +48,13 @@ export default function Play() {
       resizeMode="cover"
       style={styles.background}
     >
-    <Pressable onPress={handleJump}>
+    <Pressable onPress={handleJump} style={styles.background}>
       <SafeAreaView style={styles.screen}>
         <Image
-            source={require("@/assets/images/cuthulhuEye.webp")}
+            source={require("@/assets/images/eye2.gif")}
             style={styles.eye}
         />
+        <Pipe gapY={300}/>
       </SafeAreaView>
     </Pressable>
 

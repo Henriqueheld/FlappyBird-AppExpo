@@ -1,3 +1,4 @@
+import GradientText from "@/Components/GradientText";
 import MovingBackground from "@/Components/Movingbackground";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
@@ -25,7 +26,13 @@ export default function Home() {
             source={require("@/assets/images/cuthulhuEye.webp")}
             style={styles.titleImage}
           />
-          <Text style={styles.title}>Flappy Eye</Text>
+          <GradientText
+           colors={["#6c864d", "#662a2a"]}
+           style={styles.title}
+           
+           >
+            Flappy Eye
+           </GradientText>
         </View>
         <Link href="/play" asChild>
           <TouchableOpacity style={styles.button}>
@@ -71,7 +78,6 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 90,
-    color: "rgb(122, 37, 16)",
     textAlign: "center",
     textShadowColor: "rgba(71, 13, 9, 0.75)",
     textShadowOffset: { width: -1, height: 1 },

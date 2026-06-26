@@ -32,12 +32,12 @@ export default function MovingBackground() {
     <View style={styles.screen}>
       <Animated.View style={[styles.container, animatedStyle]}>
         <Image
-          source={require("@/assets/images/groudt.webp")}
+          source={require("@/assets/images/ground.png")}
           resizeMode="stretch"
           style={styles.image}
         />
         <Image
-          source={require("@/assets/images/groudt.webp")}
+          source={require("@/assets/images/ground.png")}
           resizeMode="stretch"
           style={styles.image}
         />
