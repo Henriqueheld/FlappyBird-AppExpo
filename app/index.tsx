@@ -27,7 +27,7 @@ export default function Home() {
             style={styles.titleImage}
           />
           <GradientText
-           colors={["#6c864d", "#662a2a"]}
+           colors={["#ff4444", "#441e1e"]}
            style={styles.title}
            
            >
@@ -79,9 +79,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 90,
     textAlign: "center",
-    textShadowColor: "rgba(71, 13, 9, 0.75)",
-    textShadowOffset: { width: -1, height: 1 },
-    textShadowRadius: 10,
+    textShadowColor: "rgba(0, 0, 0, 0.42)",
+    textShadowOffset: { width: -5, height: 1 },
+    textShadowRadius: 1,
     fontFamily: "MedievalSharp",
   },
 
