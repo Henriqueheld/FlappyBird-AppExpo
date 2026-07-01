@@ -1,3 +1,4 @@
+import BackgroundSound from "@/Components/BackgroundSound";
 import GradientText from "@/Components/GradientText";
 import MovingBackground from "@/Components/Movingbackground";
 import { LinearGradient } from "expo-linear-gradient";
@@ -20,6 +21,7 @@ export default function Home() {
       resizeMode="cover"
       style={styles.background}
     >
+      <BackgroundSound source={require("@/assets/Sounds/soundtrack.mp3")} loop />
       <SafeAreaView style={styles.screen}>
         <View style={styles.titleWrapper}>
           <Image

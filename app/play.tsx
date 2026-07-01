@@ -14,43 +14,55 @@ import MovingBackground from "../Components/Movingbackground";
 import {useAudioPlayer} from "expo-audio"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect } from "react";
+import { Dimensions } from "react-native";
 import Pipe from "@/Components/Pipe";
+import { CAP_HEIGHT, GAP_SIZE } from "@/Constants/pipe";
 
+
+interface Obstacle {
+  id: string;
+  gapY: number;
+}
 
 export default function Play() {
 
+  const { height } = Dimensions.get("window");
   const jumpSound = useAudioPlayer(require("@/assets/Sounds/NPC_Hit_1.wav"))
   const soundtrack = useAudioPlayer(require("@/assets/Sounds/soundtrack.mp3"))
   const pointSound = useAudioPlayer(require("@/assets/Sounds/wing.mp3"))
 
 
-  const [obstacles, setObstacles] = useState([] as string[]);
+  const [obstacles, setObstacles] = useState([] as Obstacle[]);
 
     function handleJump() {
+      try {
         jumpSound.seekTo(0);
         jumpSound.volume = 1.0;
         jumpSound.play();
+      } catch (error) {
+
+      }
     }
 
-    useEffect(() => {
-        soundtrack.seekTo(0)
-        soundtrack.volume = 0.5;
-        soundtrack.loop = true
-        soundtrack.play()
-
-        return () => {
-            soundtrack.pause()
-        }
-    }, [])
 
     function spawnObstacle() {
-      setObstacles((oldValue) => [...oldValue, Date.now().toString()])
+      setObstacles((oldValue) => [...oldValue,{ id: Date.now().toString(), gapY: randomGapY() }])
     }
 
     function removeObstacle(id: string) {
-      setObstacles((oldValue) => oldValue.filter((item) => item !== id))
-      pointSound.seekTo(0)
-      pointSound.play()
+      setObstacles((oldValue) => oldValue.filter((item) => item.id !== id))
+      try {
+        pointSound.seekTo(0)
+        pointSound.play()
+    } catch (error) {
+        
+      }
+    } 
+
+    function randomGapY() {
+      const min = CAP_HEIGHT + GAP_SIZE / 2;
+      const max = height - CAP_HEIGHT - GAP_SIZE / 2;
+      return Math.random() * (max - min) + min;
     }
 
     useEffect(() => {
@@ -69,14 +81,14 @@ export default function Play() {
       <SafeAreaView style={styles.screen}>
         <Image
             source={require("@/assets/images/eyegif.gif")}
-            style={styles.eye}
+            style={[styles.eye, { transform: [{ scaleX: -1 }] }]}
         />
 
         {obstacles.map((obstacle) => 
           <Pipe 
-            key={obstacle} 
-            gapY={195} 
-            onEnd={() => removeObstacle(obstacle)}
+            key={obstacle.id} 
+            gapY={obstacle.gapY} 
+            onEnd={() => removeObstacle(obstacle.id)}
           />)}
       </SafeAreaView>
     </Pressable>
@@ -113,7 +125,7 @@ const styles = StyleSheet.create({
 
   eye: {
     width: 100,
-    height: 70,
+    height: 100,
     alignItems: "center",
     justifyContent: "center",
   }
